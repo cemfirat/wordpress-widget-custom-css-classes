@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Widget CSS Classes
- * Description: Ergänzt klassische WordPress-Widgets um zusätzliche CSS-Klassen. Funktioniert auch mit YOOtheme Pro, wenn das Theme den WordPress-Widget-Wrapper selbst erzeugt.
- * Version: 3.0.0
+ * Plugin Name: Widget Custom CSS Classes
+ * Description: Adds custom CSS classes to classic WordPress widgets. Compatible with YOOtheme Pro when the theme generates the widget wrapper.
+ * Version: 0.0.1
  * Author: Cem Firat
- * Text Domain: widget-css-classes
+ * Text Domain: wordpress-widget-custom-css-classes
  * Requires at least: 6.2
- * Requires PHP: 7.4
+ * Requires PHP: 8.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
