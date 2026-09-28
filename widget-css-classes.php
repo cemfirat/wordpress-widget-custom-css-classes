@@ -1,12 +1,17 @@
 <?php
 /**
- * Plugin Name: Widget Custom CSS Classes
+ * Plugin Name: WordPress Widget Custom CSS Classes
+ * Plugin URI: https://github.com/cemfirat/wordpress-widget-custom-css-classes
  * Description: Adds custom CSS classes to classic WordPress widgets. Compatible with YOOtheme Pro when the theme generates the widget wrapper.
  * Version: 0.0.1
+ * Requires at least: 6.5
+ * Requires PHP: 8.0
  * Author: Cem Firat
+ * Author URI: https://cemfirat.com/
+ * License: GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Update URI: https://github.com/cemfirat/wordpress-widget-custom-css-classes
  * Text Domain: wordpress-widget-custom-css-classes
- * Requires at least: 6.2
- * Requires PHP: 8.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
