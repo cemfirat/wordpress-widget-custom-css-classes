@@ -15,6 +15,7 @@ EXPECTED = [
     "wordpress-widget-custom-css-classes/CHANGELOG.md",
     "wordpress-widget-custom-css-classes/LICENSE",
     "wordpress-widget-custom-css-classes/README.md",
+    "wordpress-widget-custom-css-classes/includes/class-widget-css-classes-updater.php",
     "wordpress-widget-custom-css-classes/readme.txt",
     "wordpress-widget-custom-css-classes/widget-css-classes.php",
 ]
