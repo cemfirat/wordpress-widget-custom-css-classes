@@ -36,3 +36,17 @@ jobs:
 
       - name: Run regression tests
         run: php tests/run.php
+
+
+  package:
+    name: Deterministic package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out plugin
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Verify deterministic ZIP
+        run: python3 tests/package.py
