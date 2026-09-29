@@ -23,18 +23,18 @@ final class CCF_Widget_CSS_Classes {
 	private const FIELD_KEY = '_ccf_css_classes';
 
 	public function __construct() {
-		// Klassischen Widget-Editor verwenden, damit PHP-Widgets ihr Formular anzeigen.
+		// Use the classic widget editor so PHP widgets can render their form fields.
 		add_filter( 'use_widgets_block_editor', '__return_false', 100 );
 
 		add_action( 'in_widget_form', array( $this, 'render_field' ), 10, 3 );
 		add_filter( 'widget_update_callback', array( $this, 'save_field' ), 10, 4 );
 
-		// Standard-WordPress-Ausgabe: Klassen direkt in before_widget einfügen.
+		// Standard WordPress output: add classes directly to before_widget.
 		add_filter( 'dynamic_sidebar_params', array( $this, 'filter_sidebar_params' ), PHP_INT_MAX );
 
-		// Theme-Fallback, insbesondere für YOOtheme Pro: finales HTML anhand der
-		// tatsächlichen Widget-ID ergänzen. YOOtheme baut den Wrapper teilweise
-		// nach dem WordPress-Filter neu auf und verwirft dadurch before_widget.
+		// Theme fallback, especially for YOOtheme Pro: amend the final HTML using the
+		// actual widget ID. Some themes rebuild the wrapper after the WordPress
+		// widget filter has run and therefore discard before_widget changes.
 		add_action( 'template_redirect', array( $this, 'start_html_buffer' ), 0 );
 	}
 
@@ -43,7 +43,7 @@ final class CCF_Widget_CSS_Classes {
 		?>
 		<p class="ccf-widget-css-classes-field">
 			<label for="<?php echo esc_attr( $widget->get_field_id( self::FIELD_KEY ) ); ?>">
-				<strong><?php esc_html_e( 'Zusätzliche CSS-Klassen', 'widget-css-classes' ); ?></strong>
+				<strong><?php esc_html_e( 'Additional CSS classes', 'wordpress-widget-custom-css-classes' ); ?></strong>
 			</label>
 			<input
 				type="text"
@@ -51,10 +51,10 @@ final class CCF_Widget_CSS_Classes {
 				id="<?php echo esc_attr( $widget->get_field_id( self::FIELD_KEY ) ); ?>"
 				name="<?php echo esc_attr( $widget->get_field_name( self::FIELD_KEY ) ); ?>"
 				value="<?php echo esc_attr( $value ); ?>"
-				placeholder="z. B. uk-margin-large meine-klasse"
+				placeholder="<?php echo esc_attr__( 'e.g. uk-margin-large my-custom-class', 'wordpress-widget-custom-css-classes' ); ?>"
 				autocomplete="off"
 			>
-			<small><?php esc_html_e( 'Mehrere Klassen mit Leerzeichen trennen. Ohne Punkt eingeben.', 'widget-css-classes' ); ?></small>
+			<small><?php esc_html_e( 'Separate multiple classes with spaces. Do not include a leading dot.', 'wordpress-widget-custom-css-classes' ); ?></small>
 		</p>
 		<?php
 	}
@@ -137,7 +137,7 @@ final class CCF_Widget_CSS_Classes {
 			return $processor->get_updated_html();
 		}
 
-		// Sicherheitsfallback; WordPress 6.2+ besitzt normalerweise den Tag Processor.
+		// Safety fallback; supported WordPress versions normally provide the Tag Processor.
 		foreach ( $map as $widget_id => $classes ) {
 			$html = preg_replace_callback(
 				'/<([a-z][a-z0-9:-]*)([^>]*\sid=(?:"|\')' . preg_quote( $widget_id, '/' ) . '(?:"|\')[^>]*)>/i',
