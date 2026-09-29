@@ -17,7 +17,7 @@ Multiple class names can be entered as a whitespace-separated list. The plugin s
 
 For normal WordPress widget output, classes are inserted through the standard dynamic_sidebar_params flow. Some themes can rebuild the final widget wrapper after that filter has run. The plugin therefore includes a compatibility fallback that can match active widgets by their rendered widget ID and add the configured classes to the final HTML.
 
-The current development version uses the classic Widgets administration screen so traditional WP_Widget forms can expose the additional field. This behavior and the final-HTML fallback are being reviewed before the first stable release.
+The plugin does not disable WordPress' block-based Widgets screen. Classic widgets remain editable through WordPress' Legacy Widget compatibility layer. The plugin targets classic WP_Widget instances and does not claim a CSS-class control for arbitrary block widgets.
 
 == Installation ==
 
@@ -44,7 +44,7 @@ No. Enter class names only, for example my-custom-class rather than .my-custom-c
 
 = Why is there a YOOtheme Pro fallback? =
 
-Some theme configurations generate the final widget wrapper after the normal WordPress widget filters have run. In that situation a modified before_widget value can be discarded. The fallback identifies the final widget element by its WordPress widget ID and adds the configured classes there.
+Some theme configurations generate the final widget wrapper after the normal WordPress widget filters have run. In that situation a modified before_widget value can be discarded. The fallback identifies the final widget element by its WordPress widget ID and adds the configured classes there. It only starts when an active widget actually has configured classes and can be disabled through the ccf_widget_css_classes_enable_html_fallback filter.
 
 = Does the plugin support block widgets? =
 
