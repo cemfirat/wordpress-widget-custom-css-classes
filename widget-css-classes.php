@@ -18,6 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+define( 'CCF_WIDGET_CSS_CLASSES_VERSION', '0.0.1' );
+define( 'CCF_WIDGET_CSS_CLASSES_FILE', __FILE__ );
+
+require_once __DIR__ . '/includes/class-widget-css-classes-updater.php';
+
+new CCF_Widget_CSS_Classes_Updater( __FILE__ );
+
 final class CCF_Widget_CSS_Classes {
 
 	private const FIELD_KEY = '_ccf_css_classes';
