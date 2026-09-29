@@ -21,17 +21,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check out pinned blueprint
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Audit plugin against pinned blueprint
+        uses: cemfirat/repository-governance/blueprints/wordpress-plugin@c51ecadceaf47ffb9059aae57155e883804e9717
         with:
-          repository: cemfirat/repository-governance
-          ref: dbd009bf79fbad1a38be6da3fae9a7da30418c99
-          path: .ccf-governance
-          persist-credentials: false
-
-      - name: Audit plugin against blueprint
-        run: >-
-          python3 .ccf-governance/scripts/wordpress-plugin-blueprint.py
-          --governance-root .ccf-governance
-          audit
-          --plugin-root .
+          plugin-root: .
