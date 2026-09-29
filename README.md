@@ -39,11 +39,11 @@ For development builds:
 
 A stable release ZIP will be published only after the baseline and compatibility checks are complete.
 
-## Classic widget editor
+## Widgets editor compatibility
 
-The current implementation disables the block-based Widgets screen so that the additional field can be attached to traditional `WP_Widget` forms.
+The plugin no longer disables WordPress' block-based Widgets screen. Classic third-party widgets remain editable through WordPress' Legacy Widget compatibility layer, so the plugin does not take over the site's global Widgets Editor preference.
 
-That global behavior is intentionally under review before the first stable release because it affects the complete Widgets administration screen, not only widgets that use custom classes.
+The plugin still targets classic `WP_Widget` instances. It does not add CSS-class controls to arbitrary block widgets.
 
 ## YOOtheme Pro compatibility
 
@@ -51,7 +51,7 @@ WordPress normally allows the plugin to inject classes through `dynamic_sidebar_
 
 For that case, the plugin can inspect the final frontend HTML, identify active widgets by their rendered widget ID and add the configured classes to the matching element.
 
-The fallback is being reviewed for performance and scope before the first stable release.
+The fallback is only started when at least one active widget actually has additional classes configured. It can also be disabled with the `ccf_widget_css_classes_enable_html_fallback` filter. WordPress' built-in HTML Tag Processor is used instead of regex-based HTML rewriting.
 
 ## Development
 

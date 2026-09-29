@@ -22,10 +22,9 @@ final class CCF_Widget_CSS_Classes {
 
 	private const FIELD_KEY = '_ccf_css_classes';
 
-	public function __construct() {
-		// Use the classic widget editor so PHP widgets can render their form fields.
-		add_filter( 'use_widgets_block_editor', '__return_false', 100 );
+	private $active_widget_class_map = array();
 
+	public function __construct() {
 		add_action( 'in_widget_form', array( $this, 'render_field' ), 10, 3 );
 		add_filter( 'widget_update_callback', array( $this, 'save_field' ), 10, 4 );
 
@@ -107,6 +106,17 @@ final class CCF_Widget_CSS_Classes {
 			return;
 		}
 
+		$map = $this->get_active_widget_class_map();
+		if ( empty( $map ) ) {
+			return;
+		}
+
+		$enabled = apply_filters( 'ccf_widget_css_classes_enable_html_fallback', true, $map );
+		if ( ! $enabled ) {
+			return;
+		}
+
+		$this->active_widget_class_map = $map;
 		ob_start( array( $this, 'filter_final_html' ) );
 	}
 
@@ -115,41 +125,27 @@ final class CCF_Widget_CSS_Classes {
 			return $html;
 		}
 
-		$map = $this->get_active_widget_class_map();
-		if ( empty( $map ) ) {
+		$map = $this->active_widget_class_map;
+		$this->active_widget_class_map = array();
+
+		if ( empty( $map ) || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
 			return $html;
 		}
 
-		if ( class_exists( 'WP_HTML_Tag_Processor' ) ) {
-			$processor = new WP_HTML_Tag_Processor( $html );
+		$processor = new WP_HTML_Tag_Processor( $html );
 
-			while ( $processor->next_tag() ) {
-				$id = $processor->get_attribute( 'id' );
-				if ( ! is_string( $id ) || ! isset( $map[ $id ] ) ) {
-					continue;
-				}
-
-				foreach ( $map[ $id ] as $class_name ) {
-					$processor->add_class( $class_name );
-				}
+		while ( $processor->next_tag() ) {
+			$id = $processor->get_attribute( 'id' );
+			if ( ! is_string( $id ) || ! isset( $map[ $id ] ) ) {
+				continue;
 			}
 
-			return $processor->get_updated_html();
+			foreach ( $map[ $id ] as $class_name ) {
+				$processor->add_class( $class_name );
+			}
 		}
 
-		// Safety fallback; supported WordPress versions normally provide the Tag Processor.
-		foreach ( $map as $widget_id => $classes ) {
-			$html = preg_replace_callback(
-				'/<([a-z][a-z0-9:-]*)([^>]*\sid=(?:"|\')' . preg_quote( $widget_id, '/' ) . '(?:"|\')[^>]*)>/i',
-				function ( $matches ) use ( $classes ) {
-					return $this->add_classes_to_first_tag( $matches[0], $classes );
-				},
-				$html,
-				1
-			) ?: $html;
-		}
-
-		return $html;
+		return $processor->get_updated_html();
 	}
 
 	private function get_active_widget_class_map() {
@@ -239,44 +235,20 @@ final class CCF_Widget_CSS_Classes {
 	}
 
 	private function add_classes_to_first_tag( $html, array $classes ) {
-		if ( '' === $html || empty( $classes ) ) {
+		if ( '' === $html || empty( $classes ) || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
 			return $html;
 		}
 
-		if ( class_exists( 'WP_HTML_Tag_Processor' ) ) {
-			$processor = new WP_HTML_Tag_Processor( $html );
-			if ( $processor->next_tag() ) {
-				foreach ( $classes as $class_name ) {
-					$processor->add_class( $class_name );
-				}
-				return $processor->get_updated_html();
-			}
+		$processor = new WP_HTML_Tag_Processor( $html );
+		if ( ! $processor->next_tag() ) {
+			return $html;
 		}
 
-		return preg_replace_callback(
-			'/<([a-z][a-z0-9:-]*)(\s[^>]*)?>/i',
-			static function ( $matches ) use ( $classes ) {
-				$attributes = isset( $matches[2] ) ? $matches[2] : '';
-				$extra      = implode( ' ', $classes );
+		foreach ( $classes as $class_name ) {
+			$processor->add_class( $class_name );
+		}
 
-				if ( preg_match( '/\sclass\s*=\s*(["\'])(.*?)\1/i', $attributes ) ) {
-					$attributes = preg_replace_callback(
-						'/\sclass\s*=\s*(["\'])(.*?)\1/i',
-						static function ( $class_matches ) use ( $extra ) {
-							return ' class=' . $class_matches[1] . esc_attr( trim( $class_matches[2] . ' ' . $extra ) ) . $class_matches[1];
-						},
-						$attributes,
-						1
-					);
-				} else {
-					$attributes .= ' class="' . esc_attr( $extra ) . '"';
-				}
-
-				return '<' . $matches[1] . $attributes . '>';
-			},
-			$html,
-			1
-		) ?: $html;
+		return $processor->get_updated_html();
 	}
 }
 
