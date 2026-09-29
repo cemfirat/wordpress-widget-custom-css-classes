@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: cemfirat/repository-governance
-          ref: ad1a76a6830bef746aac73d551aa58aa14c36340
+          ref: dbd009bf79fbad1a38be6da3fae9a7da30418c99
           path: .ccf-governance
           persist-credentials: false
 
