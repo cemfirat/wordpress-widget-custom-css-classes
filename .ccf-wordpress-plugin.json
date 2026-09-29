@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cemfirat/repository-governance/main/blueprints/wordpress-plugin/manifest.schema.json",
+  "schema_version": 1,
+  "blueprint": "wordpress-plugin",
+  "blueprint_version": "0.1.0",
+  "profile": "simple",
+  "plugin": {
+    "slug": "wordpress-widget-custom-css-classes",
+    "name": "WordPress Widget Custom CSS Classes",
+    "main_file": "widget-css-classes.php",
+    "version": "0.0.1",
+    "text_domain": "wordpress-widget-custom-css-classes",
+    "minimum_wordpress": "6.5",
+    "minimum_php": "8.0",
+    "author": "Cem Firat",
+    "license": "GPL-2.0-or-later",
+    "license_header": "GPL-2.0-or-later"
+  },
+  "distribution": {
+    "channel": "github-releases",
+    "updates": "none",
+    "update_uri": "https://github.com/cemfirat/wordpress-widget-custom-css-classes"
+  },
+  "features": {
+    "block_plugin": false,
+    "playground_preview": false
+  }
+}
