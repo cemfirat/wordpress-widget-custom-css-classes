@@ -156,23 +156,24 @@ final class CCF_Widget_CSS_Classes {
 	}
 
 	private function get_active_widget_class_map() {
-		$sidebars = wp_get_sidebars_widgets();
-		if ( ! is_array( $sidebars ) ) {
+		global $wp_registered_widgets;
+
+		if ( ! is_array( $wp_registered_widgets ) ) {
 			return array();
 		}
 
 		$map = array();
-		foreach ( $sidebars as $sidebar_id => $widget_ids ) {
-			if ( 'wp_inactive_widgets' === $sidebar_id || 'array_version' === $sidebar_id || ! is_array( $widget_ids ) ) {
+
+		foreach ( array_keys( $wp_registered_widgets ) as $widget_id ) {
+			$widget_id = (string) $widget_id;
+
+			if ( false === is_active_widget( false, $widget_id, false, true ) ) {
 				continue;
 			}
 
-			foreach ( $widget_ids as $widget_id ) {
-				$widget_id = (string) $widget_id;
-				$classes   = $this->get_classes_for_widget( $widget_id );
-				if ( ! empty( $classes ) ) {
-					$map[ $widget_id ] = $classes;
-				}
+			$classes = $this->get_classes_for_widget( $widget_id );
+			if ( ! empty( $classes ) ) {
+				$map[ $widget_id ] = $classes;
 			}
 		}
 
