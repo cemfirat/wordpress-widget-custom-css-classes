@@ -43,7 +43,7 @@ final class CCF_Widget_CSS_Classes {
 		?>
 		<p class="ccf-widget-css-classes-field">
 			<label for="<?php echo esc_attr( $widget->get_field_id( self::FIELD_KEY ) ); ?>">
-				<strong><?php esc_html_e( 'Zusätzliche CSS-Klassen', 'widget-css-classes' ); ?></strong>
+				<strong><?php esc_html_e( 'Zusätzliche CSS-Klassen', 'wordpress-widget-custom-css-classes' ); ?></strong>
 			</label>
 			<input
 				type="text"
@@ -51,10 +51,10 @@ final class CCF_Widget_CSS_Classes {
 				id="<?php echo esc_attr( $widget->get_field_id( self::FIELD_KEY ) ); ?>"
 				name="<?php echo esc_attr( $widget->get_field_name( self::FIELD_KEY ) ); ?>"
 				value="<?php echo esc_attr( $value ); ?>"
-				placeholder="z. B. uk-margin-large meine-klasse"
+				placeholder="<?php echo esc_attr__( 'z. B. uk-margin-large meine-klasse', 'wordpress-widget-custom-css-classes' ); ?>"
 				autocomplete="off"
 			>
-			<small><?php esc_html_e( 'Mehrere Klassen mit Leerzeichen trennen. Ohne Punkt eingeben.', 'widget-css-classes' ); ?></small>
+			<small><?php esc_html_e( 'Mehrere Klassen mit Leerzeichen trennen. Ohne Punkt eingeben.', 'wordpress-widget-custom-css-classes' ); ?></small>
 		</p>
 		<?php
 	}
