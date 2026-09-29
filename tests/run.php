@@ -25,6 +25,10 @@ function apply_filters($hook, $value, ...$args) {
     return $value;
 }
 
+function plugin_basename($file) {
+    return 'wordpress-widget-custom-css-classes/widget-css-classes.php';
+}
+
 function wp_unslash($value) {
     return $value;
 }
@@ -276,6 +280,35 @@ $html = ob_get_clean();
 ccf_test_assert(
     false !== strpos($html, 'class="widget alpha beta"'),
     'final HTML fallback should add classes to the matching widget id'
+);
+
+$release = CCF_Widget_CSS_Classes_Updater::parse_release([
+    'draft' => false,
+    'prerelease' => false,
+    'tag_name' => 'v0.0.2',
+    'body' => "Requires WordPress: 6.5\nRequires PHP: 8.0\n\nTest release.",
+    'assets' => [[
+        'name' => 'wordpress-widget-custom-css-classes.zip',
+        'browser_download_url' => 'https://github.com/cemfirat/wordpress-widget-custom-css-classes/releases/download/v0.0.2/wordpress-widget-custom-css-classes.zip',
+        'state' => 'uploaded',
+        'size' => 1234,
+    ]],
+]);
+
+ccf_test_assert(
+    is_array($release) && '0.0.2' === $release['version'],
+    'updater should accept only a complete stable release with the exact package asset'
+);
+
+ccf_test_assert(
+    false === CCF_Widget_CSS_Classes_Updater::parse_release([
+        'draft' => true,
+        'prerelease' => false,
+        'tag_name' => 'v0.0.2',
+        'body' => "Requires WordPress: 6.5\nRequires PHP: 8.0",
+        'assets' => [],
+    ]),
+    'updater must reject draft releases'
 );
 
 echo "OK\n";
