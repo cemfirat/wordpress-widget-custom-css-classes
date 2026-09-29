@@ -53,6 +53,14 @@ For that case, the plugin can inspect the final frontend HTML, identify active w
 
 The fallback is only started when at least one active widget actually has additional classes configured. It can also be disabled with the `ccf_widget_css_classes_enable_html_fallback` filter. WordPress' built-in HTML Tag Processor is used instead of regex-based HTML rewriting.
 
+## Updates
+
+The plugin is prepared for stable updates from this public GitHub repository. WordPress checks the repository's latest stable GitHub Release and accepts only a non-draft, non-prerelease release that contains the exact `wordpress-widget-custom-css-classes.zip` asset and explicit WordPress/PHP requirements.
+
+Until the first stable release is published, the updater simply has no valid release to offer.
+
+Update checks contact `api.github.com`; package downloads use `github.com`. No widget settings or site content are sent to GitHub.
+
 ## Development
 
 The current stabilization work is tracked in [issue #1](https://github.com/cemfirat/wordpress-widget-custom-css-classes/issues/1).

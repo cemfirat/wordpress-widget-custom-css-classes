@@ -12,5 +12,5 @@ All notable changes to WordPress Widget Custom CSS Classes are documented here.
 - Keep the WordPress Widgets Block Editor enabled instead of globally forcing the classic editor.
 - Start the final-HTML fallback only when active widgets actually need it and allow the fallback to be disabled by filter.
 - Use the WordPress HTML Tag Processor as the only HTML mutation path for the supported WordPress baseline.
-- Add focused PHP regression tests and pinned CI for supported PHP versions.
+- Add focused PHP regression tests and pinned CI for supported PHP versions.\n- Add guarded GitHub stable-release update discovery with strict asset and requirements validation.
 - Align plugin metadata, translations, documentation, branding and licensing with the Cem Firat WordPress plugin family.

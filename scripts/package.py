@@ -13,6 +13,7 @@ PLUGIN_DIR = "wordpress-widget-custom-css-classes"
 MAIN_FILE = "widget-css-classes.php"
 FILES = [
     MAIN_FILE,
+    "includes/class-widget-css-classes-updater.php",
     "readme.txt",
     "README.md",
     "CHANGELOG.md",

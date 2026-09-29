@@ -32,6 +32,12 @@ Example:
 
 uk-margin-large my-custom-class
 
+== Updates ==
+
+Stable updates are prepared to be delivered from the public GitHub repository. WordPress checks api.github.com for the latest stable release and only accepts a release with the exact wordpress-widget-custom-css-classes.zip asset and explicit WordPress/PHP requirements.
+
+Until a stable release exists, no update package is offered. Widget settings and site content are not sent to GitHub.
+
 == Frequently Asked Questions ==
 
 = Can I enter more than one class? =
