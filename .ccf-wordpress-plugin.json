@@ -20,7 +20,7 @@
   },
   "distribution": {
     "channel": "github-releases",
-    "updates": "none",
+    "updates": "github-release-updater",
     "update_uri": "https://github.com/cemfirat/wordpress-widget-custom-css-classes"
   },
   "features": {
